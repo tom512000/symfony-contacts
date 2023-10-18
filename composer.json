@@ -78,7 +78,21 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "start": [
+            "symfony serve"
+        ],
+        "fix:cs": [
+            "php-cs-fixer fix"
+        ],
+        "test:cs" : [
+            "php-cs-fixer fix --dry-run"
         ]
+    },
+    "scripts-descriptions": {
+        "start" : "Run Test Web server",
+        "fix:cs": "Fix PHP code with PHP CS Fixer",
+        "test:cs" : "Test PHP code with PHP CS Fixer"
     },
     "conflict": {
         "symfony/symfony": "*"
