@@ -20,6 +20,7 @@ class HelloController extends AbstractController
     public function world(string $name): Response
     {
         // return new Response("Hello $name!");
-        return $this->render('hello/world.html.twig');
+        return $this->render('hello/world.html.twig',
+            ['name' => $name]);
     }
 }
