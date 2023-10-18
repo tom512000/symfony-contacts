@@ -6,7 +6,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>{% block title %}Hello {{ name }}!{% endblock %}</title>
+        <title>{% block title %}Hello many times!{% endblock %}</title>
         {% block stylesheets %}
         {% endblock %}
 
@@ -15,8 +15,8 @@
     </head>
     <body>
     {% block body %}
-        <h1>Hello {{ name }}</h1>
-        {% for i in 1..10 %}
+        <h1>Hello many times {{ name }}!</h1>
+        {% for i in 1..times %}
             <p style="color: {{ cycle(['green', 'red'], i) }}">Hello {{ name|capitalize }}! ({{ i|format_number({integer_digit: 2}) }})</p>
         {% endfor %}
     {% endblock %}
