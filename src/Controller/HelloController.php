@@ -16,7 +16,7 @@ class HelloController extends AbstractController
         ]);
     }
 
-    #[Route('/hello/{name}')]
+    #[Route('/hello/{name}', name: 'app_hello_manytimes')]
     public function world(string $name): Response
     {
         // return new Response("Hello $name!");
@@ -24,9 +24,13 @@ class HelloController extends AbstractController
             ['name' => $name]);
     }
 
-    #[Route('/hello/{name}/{times}', name: 'app_hello_name_times')]
-    public function manyTimes(string $name, int $times)
+    #[Route('/hello/{name}/{times}', name: 'app_hello_name_times', requirements: ['times' => '\d+'])]
+    public function manyTimes(string $name, int $times = 3): Response
     {
+        if (($times < 1) || ($times > 10)) {
+            $times = 3;
+        }
+
         return $this->render('hello/many_times.html.twig',
             ['name' => $name, 'times' => $times]);
     }
