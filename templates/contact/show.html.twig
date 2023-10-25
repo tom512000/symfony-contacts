@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ contact.firstname }} {{ contact.lastname }}{% endblock %}
+
+{% block body %}
+    <h1>{{ contact.firstname }} {{ contact.lastname }}</h1>
+
+    <dl>
+        <dt>Nom</dt>
+        <dd>{{ contact.lastname }}</dd>
+
+        <dt>Prénom</dt>
+        <dd>{{ contact.firstname }}</dd>
+
+        <dt>Email</dt>
+        <dd>{{ contact.email }}</dd>
+    </dl>
+{% endblock %}
