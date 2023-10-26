@@ -29,6 +29,8 @@ use Zenstruck\Foundry\RepositoryProxy;
  */
 final class ContactFactory extends ModelFactory
 {
+    private $transliterator;
+
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
@@ -37,6 +39,7 @@ final class ContactFactory extends ModelFactory
     public function __construct()
     {
         parent::__construct();
+        $this->transliterator = \Transliterator::create('Any-Latin; Latin-ASCII');
     }
 
     /**
@@ -46,11 +49,19 @@ final class ContactFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $firstname = $this->normalizeName(self::faker()->firstName());
+        $lastname = $this->normalizeName(self::faker()->lastname());
+
         return [
-            'email' => self::faker()->text(100),
-            'firstname' => self::faker()->text(30),
-            'lastname' => self::faker()->text(40),
-        ];
+            'email' => $firstname.'.'.$lastname.'@'.self::faker()->domainName(),
+            'firstname' => $firstname,
+            'lastname' => $lastname];
+    }
+
+    protected function normalizeName(string $text): string
+    {
+        // return transliterator_transliterate('Any-Latin; Latin-ASCII', mb_strtolower(preg_replace('/[^A-Za-z]+/', '-', $text)));
+        return preg_replace('/[^A-Za-z]+/', '-', $this->transliterator->transliterate(mb_strtolower($text)));
     }
 
     /**
