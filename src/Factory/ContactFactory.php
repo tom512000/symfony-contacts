@@ -60,7 +60,6 @@ final class ContactFactory extends ModelFactory
 
     protected function normalizeName(string $text): string
     {
-        // return transliterator_transliterate('Any-Latin; Latin-ASCII', mb_strtolower(preg_replace('/[^A-Za-z]+/', '-', $text)));
         return preg_replace('/[^A-Za-z]+/', '-', $this->transliterator->transliterate(mb_strtolower($text)));
     }
 
