@@ -10,22 +10,23 @@ class IndexCest
     {
     }
 
-    // Test pour l'action index() du ContactController
+    /*
+     * Test pour l'action index() du ContactController
+     * */
     public function testIndexPage(ControllerTester $I)
     {
-        // Accéder à la page /contact
         $I->amOnPage('/contact');
-
-        // Vérifier que la réponse HTTP est 200 (OK)
         $I->seeResponseCodeIs(200);
-
-        // Vérifier que le titre de la page contient "Liste des contacts"
         $I->seeInTitle('Liste des contacts');
-
-        // Vérifier qu'un titre de niveau 1 contenant "Liste des contacts" est présent
         $I->see('Liste des contacts', 'h1');
-
-        // Vérifier qu'une liste à puce contient 195 éléments
         $I->seeNumberOfElements('ul li', 195);
+        $I->seeNumberOfElements('ul li a', 195);
+    }
+
+    public function testContactList(ControllerTester $I)
+    {
+        $I->amOnPage('/contact');
+        $I->click('ul li a:first-child');
+        $I->seeCurrentRouteIs('contact_show');
     }
 }
