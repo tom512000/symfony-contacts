@@ -52,10 +52,10 @@ final class ContactFactory extends ModelFactory
         $firstname = $this->normalizeName(self::faker()->firstName());
         $lastname = $this->normalizeName(self::faker()->lastname());
 
-        return [
+        return ModelFactory::createMany(150, [
             'email' => $firstname.'.'.$lastname.'@'.self::faker()->domainName(),
             'firstname' => $firstname,
-            'lastname' => $lastname];
+            'lastname' => $lastname]);
     }
 
     protected function normalizeName(string $text): string
