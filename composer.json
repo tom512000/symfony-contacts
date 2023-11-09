@@ -92,6 +92,9 @@
         ],
         "test:codeception" : [
             "php vendor/bin/codecept clean",
+            "php bin/console doctrine:database:drop --force --quiet --env=test",
+            "php bin/console doctrine:database:create --quiet --env=test",
+            "php bin/console doctrine:schema:create --quiet --env=test",
             "php vendor/bin/codecept run"
         ],
         "test" : [
@@ -109,7 +112,7 @@
         "start" : "Run Test Web server",
         "fix:cs": "Fix PHP code with PHP CS Fixer",
         "test:cs" : "Test PHP code with PHP CS Fixer",
-        "test:codeception" : "Nettoie le répertoire « _output » et le code généré par Codeception et lance les tests de Codeception",
+        "test:codeception" : "Nettoie le répertoire « _output » et le code généré par Codeception, initialise la base de données de test et lance les tests de Codeception",
         "test" : "Teste la mise en forme du code et lance les tests avec Codeception",
         "db" : "Détruit et recrée la base de données, migre sa structure et regénère les données factices"
     },
@@ -125,6 +128,7 @@
     "require-dev": {
         "codeception/codeception": "^5.0",
         "codeception/module-asserts": "^3.0",
+        "codeception/module-doctrine2": "^3.0",
         "codeception/module-symfony": "^3.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^3.35",

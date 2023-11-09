@@ -2,6 +2,7 @@
 
 namespace App\Tests\Controller\Contact;
 
+use App\Factory\ContactFactory;
 use App\Tests\Support\ControllerTester;
 
 class IndexCest
@@ -25,6 +26,10 @@ class IndexCest
 
     public function testContactList(ControllerTester $I)
     {
+        ContactFactory::createMany(5);
+        $I->click('ul li:first-child');
+        // ici, Ajoutez un test de clic sur le premier contact de la liste
+
         $I->amOnPage('/contact');
         $I->click('ul li a:first-child');
         $I->seeCurrentRouteIs('contact_show');
