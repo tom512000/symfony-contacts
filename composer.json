@@ -97,6 +97,12 @@
         "test" : [
             "@fix:cs",
             "@test:codeception"
+        ],
+        "db" : [
+            "php bin/console doctrine:database:drop --force --if-exists",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console doctrine:fixtures:load --no-interaction"
         ]
     },
     "scripts-descriptions": {
@@ -104,7 +110,8 @@
         "fix:cs": "Fix PHP code with PHP CS Fixer",
         "test:cs" : "Test PHP code with PHP CS Fixer",
         "test:codeception" : "Nettoie le répertoire « _output » et le code généré par Codeception et lance les tests de Codeception",
-        "test" : "Teste la mise en forme du code et lance les tests avec Codeception"
+        "test" : "Teste la mise en forme du code et lance les tests avec Codeception",
+        "db" : "Détruit et recrée la base de données, migre sa structure et regénère les données factices"
     },
     "conflict": {
         "symfony/symfony": "*"

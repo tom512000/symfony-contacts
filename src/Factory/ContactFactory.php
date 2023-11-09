@@ -52,15 +52,15 @@ final class ContactFactory extends ModelFactory
         $firstname = $this->normalizeName(self::faker()->firstName());
         $lastname = $this->normalizeName(self::faker()->lastname());
 
-        return ModelFactory::createMany(150, [
-            'email' => $firstname.'.'.$lastname.'@'.self::faker()->domainName(),
+        return [
+            'email' => mb_strtolower($firstname).'.'.mb_strtolower($lastname).'@'.self::faker()->domainName(),
             'firstname' => $firstname,
-            'lastname' => $lastname]);
+            'lastname' => $lastname];
     }
 
     protected function normalizeName(string $text): string
     {
-        return preg_replace('/[^A-Za-z]+/', '-', $this->transliterator->transliterate(mb_strtolower($text)));
+        return preg_replace('/[^A-Za-z]+/', '-', $this->transliterator->transliterate($text));
     }
 
     /**
