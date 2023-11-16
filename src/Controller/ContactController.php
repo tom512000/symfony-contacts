@@ -14,7 +14,6 @@ class ContactController extends AbstractController
     public function index(ContactRepository $rep): Response
     {
         $contacts = $rep->findBy([], ['lastname' => 'ASC', 'firstname' => 'ASC']);
-        //        $contacts = $rep->findAll(['lastname' => 'ASC', 'firstname' => 'ASC']);
 
         return $this->render('contact/index.html.twig', [
             'contacts' => $contacts,
