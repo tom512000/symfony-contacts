@@ -21,4 +21,4 @@
 |Incrémentation automatique|x|x|x|
 
 ## Autres
-- Les fichiers .env et .env.test sont ajoutés 
+- Les fichiers .env et .env.test sont ajoutés pour ne pas à avoir à les copier à chaque clonage du dépôt distant.

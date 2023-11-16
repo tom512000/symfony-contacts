@@ -14,13 +14,14 @@ class ContactController extends AbstractController
     public function index(ContactRepository $rep): Response
     {
         $contacts = $rep->findBy([], ['lastname' => 'ASC', 'firstname' => 'ASC']);
+        //        $contacts = $rep->findAll(['lastname' => 'ASC', 'firstname' => 'ASC']);
 
         return $this->render('contact/index.html.twig', [
             'contacts' => $contacts,
             'pageTitle' => 'Liste des contacts']);
     }
 
-    #[Route('/contact/{contact}', name: 'contact_show', requirements: ['contact' => '\d+'])]
+    #[Route('/contact/{id}', name: 'contact_show', requirements: ['contact' => '\d+'])]
     public function show(Contact $contact): Response
     {
         return $this->render('contact/show.html.twig', [

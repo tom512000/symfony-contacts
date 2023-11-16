@@ -5,9 +5,9 @@
 {% block body %}
     <h1>{{ pageTitle }}</h1>
 
-    <ul>
+    <ul class="contacts">
         {% for contact in contacts %}
-            <li><a href="{{ path('contact_show', {'contact': contact.id}) }}">{{ contact.lastname }}, {{ contact.firstname }}</a></li>
+            <li><a href="{{ path('contact_show', {'id': contact.id}) }}">{{ contact.lastname }}, {{ contact.firstname }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

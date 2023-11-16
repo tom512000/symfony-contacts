@@ -14,24 +14,46 @@ class IndexCest
     /*
      * Test pour l'action index() du ContactController
      * */
-    public function testIndexPage(ControllerTester $I)
+    public function bonNombreDeContactsDansLaListe(ControllerTester $I)
     {
+        ContactFactory::createMany(195);
+
         $I->amOnPage('/contact');
         $I->seeResponseCodeIs(200);
         $I->seeInTitle('Liste des contacts');
         $I->see('Liste des contacts', 'h1');
-        $I->seeNumberOfElements('ul li', 195);
-        $I->seeNumberOfElements('ul li a', 195);
+        $I->seeNumberOfElements('ul.contacts > li > a', 195);
     }
 
-    public function testContactList(ControllerTester $I)
+    public function contactList(ControllerTester $I)
     {
+        ContactFactory::createOne([/* 'id' => 1, */ 'firstname' => 'Joe', 'lastname' => 'Aaaaaaaaaaaaaaa']);
         ContactFactory::createMany(5);
-        $I->click('ul li:first-child');
-        // ici, Ajoutez un test de clic sur le premier contact de la liste
 
         $I->amOnPage('/contact');
-        $I->click('ul li a:first-child');
-        $I->seeCurrentRouteIs('contact_show');
+        $I->click('Aaaaaaaaaaaaaaa, Joe');
+        $I->seeResponseCodeIs(200);
+        $I->seeCurrentRouteIs('contact_show', ['id' => 1]);
+    }
+
+    public function listeDesContactsCorrectemmentTries(ControllerTester $I)
+    {
+        ContactFactory::createSequence([
+            ['firstName' => 'Alain', 'lastName' => 'Riand'],
+            ['firstName' => 'Zoe', 'lastName' => 'Fautz'],
+            ['firstName' => 'Bruno', 'lastName' => 'Gar'],
+            ['firstName' => 'Ulysse', 'lastName' => 'Voume'],
+        ]);
+
+        $I->amOnPage('/contact');
+
+        $I->assertEquals(
+            $I->grabMultiple('ul.contacts > li > a'),
+            [
+                'Fautz, Zoe',
+                'Gar, Bruno',
+                'Riand, Alain',
+                'Voume, Ulysse',
+            ]);
     }
 }
