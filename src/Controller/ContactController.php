@@ -20,7 +20,8 @@ class ContactController extends AbstractController
 
         return $this->render('contact/index.html.twig', [
             'contacts' => $contacts,
-            'pageTitle' => 'Liste des contacts']);
+            'pageTitle' => 'Liste des contacts',
+            'inputValue' => $search]);
     }
 
     #[Route('/contact/{id}', name: 'contact_show', requirements: ['contact' => '\d+'])]
