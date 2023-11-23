@@ -1,4 +1,8 @@
-.lastname {
+ul.contacts li a span.lastname {
     font-weight: bold;
+    font-variant-caps: small-caps;
+}
+
+ul.contacts li a span.firstname {
     font-variant-caps: small-caps;
 }
