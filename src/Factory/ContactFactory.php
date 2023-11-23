@@ -55,7 +55,9 @@ final class ContactFactory extends ModelFactory
         return [
             'email' => mb_strtolower($firstname).'.'.mb_strtolower($lastname).'@'.self::faker()->domainName(),
             'firstname' => $firstname,
-            'lastname' => $lastname];
+            'lastname' => $lastname,
+            'phone' => self::faker()->phoneNumber(),
+        ];
     }
 
     protected function normalizeName(string $text): string
@@ -68,9 +70,7 @@ final class ContactFactory extends ModelFactory
      */
     protected function initialize(): self
     {
-        return $this
-            // ->afterInstantiate(function(Contact $contact): void {})
-        ;
+        return $this;
     }
 
     protected static function getClass(): string
