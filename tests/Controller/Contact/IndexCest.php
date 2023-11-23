@@ -25,9 +25,9 @@ class IndexCest
         $I->seeNumberOfElements('ul.contacts > li > a', 195);
     }
 
-    public function contactList(ControllerTester $I)
+    public function contactCorrectementClickableEtUtilisable(ControllerTester $I)
     {
-        ContactFactory::createOne([/* 'id' => 1, */ 'firstname' => 'Joe', 'lastname' => 'Aaaaaaaaaaaaaaa']);
+        ContactFactory::createOne(['firstname' => 'Joe', 'lastname' => 'Aaaaaaaaaaaaaaa']);
         ContactFactory::createMany(5);
 
         $I->amOnPage('/contact');
@@ -55,5 +55,23 @@ class IndexCest
                 'Riand, Alain',
                 'Voume, Ulysse',
             ]);
+    }
+
+    public function chercheUnContactAvecLeFormulaire(ControllerTester $I)
+    {
+        ContactFactory::createSequence([
+            ['firstName' => 'Alain', 'lastName' => 'Riand'],
+            ['firstName' => 'Zoe', 'lastName' => 'Fautz'],
+            ['firstname' => 'John', 'lastname' => 'Doe'],
+            ['firstname' => 'Mickael', 'lastname' => 'John'],
+        ]);
+
+        $I->amOnPage('/contact');
+        $I->fillField('search', 'John');
+        $I->click('Rechercher');
+
+        $I->seeResponseCodeIs(200);
+        $I->seeNumberOfElements('ul.contacts > li > a', 2);
+        $I->see('Doe, John');
     }
 }
