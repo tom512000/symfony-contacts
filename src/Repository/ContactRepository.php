@@ -23,42 +23,16 @@ class ContactRepository extends ServiceEntityRepository
 
     /**
      * @return Contact[]
-     * */
+     */
     public function search(string $text = ''): array
     {
-        $qb = $this->createQueryBuilder('c')
-            ->where("c.firstname LIKE '%:text%'")
-            ->orWhere("c.lastname LIKE '%:text%'")
-            ->setParameter('text', $text)
-            ->orderBy('c.lastname')
-            ->orderBy('c.firstname');
-        $query = $qb->getQuery();
-
-        return $query->execute();
+        return $this->createQueryBuilder('c')
+            ->where('c.firstname LIKE :text')
+            ->orWhere('c.lastname LIKE :text')
+            ->setParameter('text', '%'.$text.'%')
+            ->orderBy('c.firstname', 'ASC')
+            ->orderBy('c.lastname', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
-
-    //    /**
-    //     * @return Contact[] Returns an array of Contact objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Contact
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }
