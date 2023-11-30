@@ -13,13 +13,13 @@ class Contact
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column(length: 30)] // Le prénom est stocké dans la base de données avec une limite de 30 caractères
+    #[ORM\Column(length: 30)]
     private string $firstname;
 
-    #[ORM\Column(length: 40)] // Le nom de famille est stocké dans la base de données avec une limite de 40 caractères
+    #[ORM\Column(length: 40)]
     private string $lastname;
 
-    #[ORM\Column(length: 100)] // L'adresse e-mail est stockée dans la base de données avec une limite de 100 caractères
+    #[ORM\Column(length: 100)]
     private string $email;
 
     #[ORM\Column(length: 20)]
